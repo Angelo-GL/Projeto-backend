@@ -50,5 +50,10 @@ module.exports = app =>{
 
     }
 
-    return {save}
+    //Listar usuários
+    const get = async (req, res) =>{
+        
+    }
+
+    return {save, get}
 }
