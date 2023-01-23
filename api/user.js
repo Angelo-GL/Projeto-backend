@@ -52,7 +52,10 @@ module.exports = app =>{
 
     //Listar usuários
     const get = async (req, res) =>{
-        
+        app.db('users')
+            .select('id', 'name', 'email', 'admin')
+            .then(users => res.json(users))
+            .catch(err => res.status(500).send(err))
     }
 
     return {save, get}
