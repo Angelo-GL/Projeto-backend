@@ -25,6 +25,7 @@ module.exports = app =>{
             //Verifica se o usuário ja esta cadastrado
             const userFromDB = await app.db('users')
                 .where({email: user.email}).first()
+
             if(!user.id){
                 notExistsOrError(userFromDB, "Usuário já cadastrado")
             }
@@ -38,14 +39,14 @@ module.exports = app =>{
         if(user.id){
             app.db('users')
                 .update(user)
-                .where({id: user.id})
+                .where({ id: user.id})
                 .then(_ => res.status(204).send())
-                .catch(err => res.status(500)).send(err)
+                .catch(err => res.status(500))
         }else{
             app.db('users')
                 .insert(user)
                 .then(_ => res.status(204).send())
-                .catch(err => res.status(500)).send(err)
+                .catch(err => res.status(500))
         }
 
     }
@@ -58,5 +59,20 @@ module.exports = app =>{
             .catch(err => res.status(500).send(err))
     }
 
-    return {save, get}
+    const getId = async (req, res) =>{
+        const id = req.params.id
+        if(id){
+            app.db('users')
+                .select('id', 'name', 'email', 'admin')
+                .where({id: id})
+                .then(users => res.json(users))
+                .catch(err => res.status(500).send(err))
+        }else{
+            res.status(400).send()
+        }
+        
+        
+    }
+
+    return {save, get, getId}
 }
