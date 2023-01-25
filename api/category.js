@@ -87,5 +87,13 @@ module.exports = app => {
             .then(categories => res.json(withPath(categories)))
             .catch(err => res.status(500).send(err))
     }
-    return { save }
+
+    const getId = (req, res) => {
+        app.db('categories')
+            .where({id: req.params.id})
+            .first()
+            .then(category => res.json(category))
+            .catch(err => res.status(500).send(err))
+    }
+    return { save, get, remove }
 }
