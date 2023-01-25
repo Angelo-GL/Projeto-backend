@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt-nodejs')
-const { use } = require('passport')
 
 module.exports = app =>{
     const {existsOrError, notExistsOrError, equalsOrError} = app.api.validations
@@ -60,12 +59,18 @@ module.exports = app =>{
     }
 
     const getId = async (req, res) =>{
-       
+        const id = req.params.id
+        if(id){
             app.db('users')
                 .select('id', 'name', 'email', 'admin')
-                .where({id: req.params.id})
-                .then(user => res.json(user)).first()
-                .catch(err => res.status(500).send(err))        
+                .where({id: id}).first()
+                .then(user => res.json(user))
+                .catch(err => res.status(500).send(err))
+        }else{
+            res.status(400).send()
+        }
+        
+        
     }
 
     return {save, get, getId}
