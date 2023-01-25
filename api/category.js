@@ -63,7 +63,7 @@ module.exports = app => {
             return parent.lenght ? parent[0]: null
         }
 
-        const categoriesWhitePath =categories.map(category => {
+        const categoriesWhitePath = categories.map(category => {
             let path = category.name
             let parans =getParent(categories, category.parentId)
 
@@ -80,6 +80,12 @@ module.exports = app => {
             if(a.path > b.path) return 1
             return 0
         })
+    }
+
+    const get = (req, res ) =>{
+        app.db('categories')
+            .then(categories => res.json(withPath(categories)))
+            .catch(err => res.status(500).send(err))
     }
     return { save }
 }
