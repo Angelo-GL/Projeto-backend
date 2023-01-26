@@ -95,5 +95,5 @@ module.exports = app => {
             .then(category => res.json(category))
             .catch(err => res.status(500).send(err))
     }
-    return { save, get, remove }
+    return { save, get, remove, getId }
 }
