@@ -60,18 +60,17 @@ module.exports = app => {
     const withPath = categories => {
         const getParent = (categories, parentId) => {
             const parent = categories.filter(parent => parent.id === parentId)
-            return parent.lenght ? parent[0]: null
+            return parent[0] ? parent[0]: null
         }
 
         const categoriesWhitePath = categories.map(category => {
             let path = category.name
-            let parans =getParent(categories, category.parentId)
-
+            let parent = getParent(categories, category.parentId)
             while(parent){
                 path = `${parent.name } > ${path}`
                 parent = getParent(categories, parent.parentId)
             }
-
+            
             return {...category, path}
         })
 
@@ -80,6 +79,8 @@ module.exports = app => {
             if(a.path > b.path) return 1
             return 0
         })
+
+        return categoriesWhitePath
     }
 
     const get = (req, res ) =>{
