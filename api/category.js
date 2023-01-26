@@ -15,7 +15,7 @@ module.exports = app => {
             if (!category.id) {
                 notExistsOrError(categoryFromDb, "Categoria já cadastrada")
             }
-        } catch (error) {
+        } catch (msg) {
             return res.status(400).send(msg)
         }
 
