@@ -1,3 +1,5 @@
+const { get } = require("mongoose")
+
 module.exports = app =>{
     //Rotas de Users
     app.route('/users')
@@ -18,4 +20,13 @@ module.exports = app =>{
         .put(app.api.category.save)
         .delete(app.api.category.remove)
     
+    //Rotas de Artigos
+    app.route('/articles')
+        .post(app.api.article.save)
+        .get(app.api.article.get)
+    app.route('/articles/:id')
+        .put(app.api.article.save)
+        .get(app.api.article.getById)
+        .delete(app.api.article.remove)
+
 }
