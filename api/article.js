@@ -45,4 +45,17 @@ module.exports = app => {
     //Paginação
 
     const limit = 10
+    const get = async(req, res) => {
+        const page = req.query.page || 1
+
+        const result = await app.db('articles').count('id').first()
+        const count = parseInt(result)
+        
+        app.db('articles')
+            .select('id', 'name', 'description')
+            .limit(limit).offset(page * limit - limit)
+            .then(articles => res.json({data: articles, count, limit}))
+            .catch(err => res.status(500).send(err))
+
+    }
 }
