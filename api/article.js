@@ -34,7 +34,7 @@ module.exports = app => {
         try {
             const rowsDeleted = await app.db('articles')
                 .where({id: req.params.id}).del()
-            notExistsOrError(rowsDeleted, 'Artigo não encontrado!')
+            existsOrError(rowsDeleted, 'Artigo não encontrado!')
 
             res.status(204).send({message: "Atigo excluido"})
         } catch (msg) {
@@ -49,7 +49,6 @@ module.exports = app => {
         const page = req.query.page || 1
 
         const result = await app.db('articles').count('id').first()
-        console.log(result);
         const count = parseInt(result.count)
         
         app.db('articles')
