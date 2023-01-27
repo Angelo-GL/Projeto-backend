@@ -1,5 +1,5 @@
 module.exports = app => {
-    const { existsOrError, notExistsOrError, equalsOrError } = app.api.validations
+    const { existsOrError, notExistsOrError} = app.api.validations
 
     const save = async (req, res) => {
         const category = { ...req.body }
