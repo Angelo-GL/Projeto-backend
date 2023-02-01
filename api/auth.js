@@ -25,7 +25,7 @@ module.exports = app => {
         //Data atual em segundos
         const now = Math.floor(Date.now() / 1000)
 
-        //Conteud do token jwt
+        //Conteudo do token jwt
         const payload = {
             id: user.id,
             name: user.name,
