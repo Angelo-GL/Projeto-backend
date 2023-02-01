@@ -1,6 +1,11 @@
 const { get } = require("mongoose")
 
 module.exports = app =>{
+    //Rotas de Autenticação 
+    app.post('/signup', app.api.user.save)
+    app.post('/signin', app.api.auth.signin)
+    app.post('/validateToken', app.api.auth.validateToken)
+    
     //Rotas de Users
     app.route('/users')
         .post(app.api.user.save)
