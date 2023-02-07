@@ -1,7 +1,7 @@
 const app = require('express')()
 const consign = require('consign')
 const db = require('./config/db')
-const mongoose = require('moment')
+const mongoose = require('mongoose')
 
 require('./config/mongo')
 
